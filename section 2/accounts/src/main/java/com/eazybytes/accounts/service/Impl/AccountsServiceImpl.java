@@ -38,8 +38,8 @@ public class AccountsServiceImpl implements IAccountsService {
         if(optionalCustomer.isPresent()) {
             throw new CustomerAlreadyExistsException("Customer already registered with given mobileNumber "+customerDto.getMobileNumber());
         }
-        customer.setCreatedAt(LocalDateTime.now());
-        customer.setCreatedBy("Anonymous");
+        //customer.setCreatedAt(LocalDateTime.now()); now done by auditor (AuditAwareImpl)
+        //customer.setCreatedBy("Anonymous");
         Customer savedCustomer = customerRepository.save(customer); //save coming from JpaRepo that was extended in the repository
         accountsRepository.save(createNewAccount(savedCustomer));
     }
@@ -56,8 +56,8 @@ public class AccountsServiceImpl implements IAccountsService {
         newAccount.setAccountNumber(randomAccNumber);
         newAccount.setAccountType(AccountsConstants.SAVINGS);
         newAccount.setBranchAddress(AccountsConstants.ADDRESS);
-        newAccount.setCreatedAt(LocalDateTime.now());
-        newAccount.setCreatedBy("Anonymous");
+        //newAccount.setCreatedAt(LocalDateTime.now()); Now done by auditor
+        //newAccount.setCreatedBy("Anonymous");
         return newAccount;
     }
 
